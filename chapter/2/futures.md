@@ -6,14 +6,14 @@ by: "Kisalaya Prasad and Avanti Patil"
 
 # Introduction
 
-As human beings we have an ability to multitask ie. we can walk, talk and eat at the same time except when you sneeze. Sneeze is like a blocking activity from the normal course of action, because it forces you to stop what you’re doing for a brief moment and then you resume where you left off. Activities like multitasking are called multithreading in computer lingo. In contrast to this behaviour, computer processors are single threaded. So when we say that a computer system has multi-threaded environment, it is actually just an illusion created by processor where processor’s time is shared between multiple processes. Sometimes processor gets blocked when some tasks are hindered from normal execution due to blocking calls. Such blocking calls can range from IO operations like read/write to disk or sending/receiving packets to/from network. Blocking calls can take disproportionate amount of time compared to the processor’s task execution i.e. iterating over a list.
+As human beings we have an ability to multitask i.e. we can walk, talk and eat at the same time except when you sneeze. Sneeze is like a blocking activity from the normal course of action, because it forces you to stop what you’re doing for a brief moment of peroid and then you resume where you left off. Activities like multitasking are called multithreading in computer lingo. In contrast to this behaviour, computer processors are single threaded. So when we say that a computer system has multi-threaded environment, it is actually just an illusion created by processor where processor’s time is shared between multiple processes. Sometimes processor gets blocked when processes are hindered from normal execution due to blocking calls. Such blocking calls can range from IO operations including but not limited to read/write to disk or sending/receiving packets to/from network. Blocking calls can take disproportionate amount of time compared to the processor’s task execution i.e. iterating over a list which is generally constant when every time you execute the same task.
 
 
-The processor can either handle blocking calls in two ways:
-- **Synchronous method**: As a part of running task in synchronous method, processor continues to wait for the blocking call to complete the task and return the result. After this processor will resume processing next task. Problem with this kind of method is CPU time not utilized in an ideal manner.
-- **Asynchronous method**: When you add asynchrony, you can utilize the time of CPU to work on some other task using one of the preemptive time sharing algorithm. This is not blocking the processor at any time and when the asynchronous call returns the result, processor can again switch back to the previous process using preemption and resume the process from the point where it’d left off.
+The processor can handle blocking calls in two ways:
+- **Synchronous**: As a part of running task synchronously, processor continues to wait for the blocking call to complete the task and return the result. After that processor proceeds to execute next task. Problem with blocking call is that it doesn't allow CPU to utilize it's time  in an ideal manner and also too many blocking calls can cause deadly deadlocks situations.
+- **Asynchronous**: When you add asynchrony to the calls, you can utilize the time of CPU to work on some other tasks using one of the preemptive time sharing algorithms. So when non blocking calls return results/error, processor can switch back to the previous process using preemption and resume the process from that point on.
 
-In the world of asynchronous communications many terminologies were defined to help programmers reach the ideal level of resource utilization. As a part of this article we will talk about motivation behind rise of Promises and Futures, how the current notion we have of futures and promises have evolved over time, try to explain various execution models associated with it and finally we will end this discussion with how this construct helps us today in different general purpose programming languages.
+In the world of asynchronous communications many programming models were introduced to help programmers wrangle with dependencies between processes optimally. As a part of this article we will talk about motivation behind rise of Promises and Futures, how the current notion we have of futures and promises have evolved over time, try to explain various execution models associated with it and finally we will end this discussion with how this construct helps us today in different general purpose programming languages.
 
 
 <figure>
@@ -550,10 +550,7 @@ function check(data) {
 
 # Futures and Promises in Action
 
-
 ## Twitter Finagle
-
-
 Finagle is a protocol-agnostic, asynchronous RPC system for the JVM that makes it easy to build robust clients and servers in Java, Scala, or any JVM-hosted language. It uses Futures to encapsulate concurrent tasks. Finagle
 introduces two other abstractions built on top of Futures to reason about distributed software :
 
